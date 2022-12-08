@@ -11,19 +11,36 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :인스타데이터="인스타데이터" />
+  <Container :인스타데이터="인스타데이터" :step="step" :이미지="이미지" />
+  <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input
+        @change="upload"
+        multiple
+        accept="image/*"
+        type="file"
+        id="file"
+        class="inputfile"
+      />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
+
+  <!-- 이미지 업로드한 걸 HTML에 보여주려면? -->
+
+  <!-- 1. FileReader() : 파일을 글자로 변환해줌
+       2. URL.createObjectURL() : 이미지의 가상 URL을 생성해줌   
+  -->
 </template>
 
 <script>
 import Container from "./components/Container.vue";
 import instaData from "./data.js";
+
+import axios from "axios";
+axios.get();
 
 export default {
   name: "App",
@@ -34,7 +51,44 @@ export default {
   data() {
     return {
       인스타데이터: instaData,
+      step: 0,
+      // 현재 페이지 상태
+      이미지: "",
     };
+  },
+  methods: {
+    clickTab(num) {
+      if (num === 1) {
+        this.openTab = 1;
+      } else if (num === 2) {
+        this.openTab = 2;
+      } else {
+        this.openTab = 3;
+      }
+    },
+
+    upload(e) {
+      let 파일 = e.target.files;
+      let url = URL.createObjectURL(파일[0]);
+      console.log(url);
+
+      this.이미지 = url;
+
+      this.step++;
+    },
+    more() {
+      console.log(this.clicked);
+
+      axios
+        .get(`https://codingapple1.github.io/vue/more${this.clicked}.json`)
+        .then((결과) => {
+          // 요청성공시 실행할 코드
+          console.log(결과.data);
+          this.인스타데이터.push(결과.data);
+        });
+      // 일반 함수보다 화살표 함수를 쓰는 이유 : 화살표 함수를 쓰면 this가 재정의되는 것을 막을 수 있음
+      // 바깥에 this를 그대로 씀
+    },
   },
 };
 </script>
