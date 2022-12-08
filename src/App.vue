@@ -6,12 +6,20 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step = step + 1">Next</li>
+      <li v-if="step == 2" @click="publish">발행</li>
+      <!-- 발행 버튼 -->
+      <!-- 스텝2에선 발행 버튼이 되어야함 -->
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :인스타데이터="인스타데이터" :step="step" :이미지="이미지" />
+  <Container
+    @write="작성한글 = $event"
+    :인스타데이터="인스타데이터"
+    :step="step"
+    :이미지="이미지"
+  />
   <button @click="more">더보기</button>
 
   <div class="footer">
@@ -51,9 +59,13 @@ export default {
   data() {
     return {
       인스타데이터: instaData,
+      // = 게시물
+      더보기: 0,
+
       step: 0,
       // 현재 페이지 상태
       이미지: "",
+      작성한글: "",
     };
   },
   methods: {
@@ -76,18 +88,35 @@ export default {
 
       this.step++;
     },
-    more() {
-      console.log(this.clicked);
+    publish() {
+      // 발행버튼 누르면
+      // this.게시물에 {내가 쓴거} 밀어넣기
 
+      var 내게시물 = {
+        name: "이치윤",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: this.이미지,
+        likes: 36,
+        data: "May 15",
+        liked: false,
+        content: this.작성한글,
+        // Container.vue에서 <textrea/>에서 작성한글이 여기에 꽂혀야함
+
+        // 하위 => 상위로 데이터 전달하는 것 => custom event
+        filter: "perpetua",
+      };
+      this.게시물.unshift(내게시물);
+      // arr 맨 앞에 밀어넣기
+      this.step = 0;
+      // 메인페이지로 돌아가게
+    },
+    more() {
       axios
-        .get(`https://codingapple1.github.io/vue/more${this.clicked}.json`)
+        .get(`https://codingapple1.github.io/vue/more${this.더보기}.json`)
         .then((결과) => {
-          // 요청성공시 실행할 코드
-          console.log(결과.data);
-          this.인스타데이터.push(결과.data);
+          this.게시물.push(결과.data);
+          this.더보기++;
         });
-      // 일반 함수보다 화살표 함수를 쓰는 이유 : 화살표 함수를 쓰면 this가 재정의되는 것을 막을 수 있음
-      // 바깥에 this를 그대로 씀
     },
   },
 };

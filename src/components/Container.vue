@@ -17,12 +17,13 @@
       ></div>
       <div class="filters">
         <div class="filter-1"></div>
-        <div class="filter- 1"></div>
+        <div class="filter-1"></div>
         <div class="filter-1"></div>
         <div class="filter-1"></div>
         <div class="filter-1"></div>
       </div>
     </div>
+
     <!-- 페이지들을 tab UI처럼 만들어라
     step이 0이면 <Post/> X3으로 보여야함
     -->
@@ -39,7 +40,13 @@
         :style="`background-image: url(${이미지}) `"
       ></div>
       <div class="write">
-        <textarea class="write-box">write!</textarea>
+        <textarea
+          @input="$emit('write', $event.target.value)"
+          class="write-box"
+        >
+        <!-- 커스텀 이벤트 문법 -->
+write!</textarea
+        >
       </div>
     </div>
   </div>
@@ -48,6 +55,12 @@
 import Post from "./Post.vue";
 
 export default {
+  data() {
+    return {
+      inputText: "",
+    };
+  },
+
   components: {
     Post,
   },
@@ -66,7 +79,6 @@ export default {
   height: 450px;
   background: cornflowerblue;
   background-size: cover;
-  background-image: url();
 }
 .filters {
   overflow-x: scroll;
