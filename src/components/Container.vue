@@ -12,11 +12,12 @@
         :style="`background-image: url(${이미지}) `"
       ></div>
       <div class="filters">
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
+        <FilterBox
+          v-for="(filter, i) in 필터"
+          :key="i"
+          :이미지="이미지"
+          :필터="필터"
+        ></FilterBox>
       </div>
     </div>
 
@@ -40,6 +41,8 @@
           @input="$emit('write', $event.target.value)"
           class="write-box"
         >
+        <!-- textarea에 누군가가 입력할때마다 이벤트가 실행되도록 @Input을 달아놓음 -->
+        <!-- write라고 작명해서 emit으로 부모에게 보냄 -->
         <!-- 커스텀 이벤트 문법 -->
 write!</textarea
         >
@@ -49,16 +52,21 @@ write!</textarea
 </template>
 <script>
 import Post from "./Post.vue";
+import FilterBox from "./FilterBox.vue";
+
+import filters from "../filters.js";
 
 export default {
   data() {
     return {
       inputText: "",
+      필터: filters,
     };
   },
 
   components: {
     Post,
+    FilterBox,
   },
   props: {
     게시물: Array,
@@ -66,6 +74,9 @@ export default {
     이미지: String,
 
     // 다양한 컴포넌트를 다루는 중요한 데이터는 App.vue에 저장하는게 맞음
+  },
+  created() {
+    console.log(this.필터);
   },
 };
 </script>
