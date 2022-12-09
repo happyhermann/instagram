@@ -1,12 +1,11 @@
 <template lang="">
   <div
-    v-for="(a, i) in 필터"
-    :key="i"
+    :class="필터"
     class="filter-item"
-    :class="`${a}`"
     :style="`background-image:url(${this.이미지})`"
-  ></div>
-  <!-- 동적인 className v-for로 바인딩 성공ㄴ -->
+  >
+    <slot></slot>
+  </div>
 </template>
 <script>
 export default {
@@ -17,7 +16,7 @@ export default {
   },
   props: {
     이미지: String,
-    필터: Array,
+    필터: String,
   },
   created() {},
 };

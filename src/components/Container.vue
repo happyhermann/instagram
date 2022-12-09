@@ -13,11 +13,16 @@
       ></div>
       <div class="filters">
         <FilterBox
-          v-for="(filter, i) in 필터"
-          :key="i"
+          v-for="필터 in 필터들"
+          :key="필터"
           :이미지="이미지"
           :필터="필터"
-        ></FilterBox>
+        >
+          {{ 필터 }}
+          <!-- slot으로 부모 => 자식 데이터 전송 쉽게 가능 -->
+          <!-- 1. 자식은 구멍 뚫기 -->
+          <!-- 2. <컴포넌트> 태그사이에 데이터 넣기 -->
+        </FilterBox>
       </div>
     </div>
 
@@ -60,7 +65,7 @@ export default {
   data() {
     return {
       inputText: "",
-      필터: filters,
+      필터들: filters,
     };
   },
 
