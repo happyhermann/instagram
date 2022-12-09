@@ -2,11 +2,7 @@
   <div>
     <div v-if="step == 0">
       <!-- Vue 3버전부턴 v-if와 v-for 한곳에 못 씀 -->
-      <Post
-        :인스타데이터="인스타데이터[i]"
-        v-for="(a, i) in 인스타데이터"
-        :key="i"
-      />
+      <Post :게시물="게시물[i]" v-for="(a, i) in 게시물" :key="i" />
     </div>
 
     <!-- 필터선택페이지 -->
@@ -65,7 +61,7 @@ export default {
     Post,
   },
   props: {
-    인스타데이터: Array,
+    게시물: Array,
     step: Number,
     이미지: String,
 

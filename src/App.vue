@@ -16,7 +16,7 @@
 
   <Container
     @write="작성한글 = $event"
-    :인스타데이터="인스타데이터"
+    :게시물="게시물"
     :step="step"
     :이미지="이미지"
   />
@@ -48,7 +48,6 @@ import Container from "./components/Container.vue";
 import instaData from "./data.js";
 
 import axios from "axios";
-axios.get();
 
 export default {
   name: "App",
@@ -58,7 +57,7 @@ export default {
 
   data() {
     return {
-      인스타데이터: instaData,
+      게시물: instaData,
       // = 게시물
       더보기: 0,
 
