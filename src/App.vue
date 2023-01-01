@@ -15,12 +15,18 @@
   </div>
 
   <h4>안녕 {{ $store.state.name }}</h4>
-  <button @click="$store.state.name = '박'">버튼</button>
+  <p>{{ $store.state.age }}</p>
+  <!-- <button @click="$store.state.name = '박'">버튼</button> -->
   <!-- store.js에 있는 state 변경하는 방법 -->
   <!-- Vuex 국룰 : 컴포넌트 안에서 직접 수정하기 금지 -->
   <!-- 1. 미리 store.js에 수정방법을 정의
        2. 그 방법을 컴포넌트에서 소환해서 수정해야 함 -->
 
+  <!-- ** 국룰 방식 : store.js에 바꾸라고 부탁하기 -->
+  <button @click="$store.commit('이름변경')">이름 변경</button>
+  <button @click="$store.commit('나이더하기', 10)">나이 더하기</button>
+
+  <!-- 수정 부탁하려면 $store.commit(함수명) -->
   <Container
     @write="작성한글 = $event"
     :게시물="게시물"
