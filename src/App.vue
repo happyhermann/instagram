@@ -14,6 +14,13 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
+  <h4>안녕 {{ $store.state.name }}</h4>
+  <button @click="$store.state.name = '박'">버튼</button>
+  <!-- store.js에 있는 state 변경하는 방법 -->
+  <!-- Vuex 국룰 : 컴포넌트 안에서 직접 수정하기 금지 -->
+  <!-- 1. 미리 store.js에 수정방법을 정의
+       2. 그 방법을 컴포넌트에서 소환해서 수정해야 함 -->
+
   <Container
     @write="작성한글 = $event"
     :게시물="게시물"
