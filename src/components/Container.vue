@@ -8,6 +8,7 @@
     <!-- 필터선택페이지 -->
     <div v-if="step == 1">
       <div
+        :class="선택한필터"
         class="upload-image"
         :style="`background-image: url(${이미지}) `"
       ></div>
@@ -23,17 +24,14 @@
           <!-- 1. 자식은 구멍 뚫기 -->
           <!-- 2. <컴포넌트> 태그사이에 데이터 넣기 -->
         </FilterBox>
+
+        <!-- ** slot은 html 태그내에 데이터 바인딩할때만 쓸 수 있음 
+          slot은 HTML 태그기 때문에 HTML 태그처럼만 사용가능합니다. 
+
+
+        -->
       </div>
     </div>
-
-    <!-- 페이지들을 tab UI처럼 만들어라
-    step이 0이면 <Post/> X3으로 보여야함
-    -->
-
-    <!-- step이 1이면 필터선택화면으로 
-    보여야함 -->
-
-    <!-- step이 2이면 글쓰는 화면 보여야함 -->
 
     <!-- 글작성페이지 -->
     <div v-if="step == 2">
@@ -59,13 +57,39 @@ write!</textarea
 import Post from "./Post.vue";
 import FilterBox from "./FilterBox.vue";
 
-import filters from "../filters.js";
-
 export default {
   data() {
     return {
       inputText: "",
-      필터들: filters,
+      필터들: [
+        "aden",
+        "_1977",
+        "brannan",
+        "brooklyn",
+        "clarendon",
+        "earlybird",
+        "gingham",
+        "hudson",
+        "inkwell",
+        "kelvin",
+        "lark",
+        "lofi",
+        "maven",
+        "mayfair",
+        "moon",
+        "nashville",
+        "perpetua",
+        "reyes",
+        "rise",
+        "slumber",
+        "stinson",
+        "toaster",
+        "valencia",
+        "walden",
+        "willow",
+        "xpro2",
+      ],
+      선택한필터: "",
     };
   },
 
@@ -82,6 +106,11 @@ export default {
   },
   created() {
     console.log(this.필터);
+  },
+  mounted() {
+    this.emitter.on("박스클릭함", (a) => {
+      this.선택한필터 = a;
+    });
   },
 };
 </script>

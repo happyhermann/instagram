@@ -65,7 +65,13 @@ export default {
       // 현재 페이지 상태
       이미지: "",
       작성한글: "",
+      filter: this.선택한필터,
     };
+  },
+  mounted() {
+    this.emitter.on("박스클릭함", (a) => {
+      this.선택한필터 = a;
+    });
   },
   methods: {
     clickTab(num) {
@@ -102,9 +108,8 @@ export default {
         // Container.vue에서 <textrea/>에서 작성한글이 여기에 꽂혀야함
 
         // 하위 => 상위로 데이터 전달하는 것 => custom event
-        filter: "perpetua",
+        filter: this.선택한필터,
       };
-      this.게시물.unshift(내게시물);
       // arr 맨 앞에 밀어넣기
       this.step = 0;
       // 메인페이지로 돌아가게
